@@ -13,7 +13,6 @@
 
 # Importing the libraries
 import numpy as np
-#import matplotlib.pyplot as plt
 import pandas as pd
 
 # Importing the dataset
@@ -71,14 +70,14 @@ classifier.fit(X_train, y_train, batch_size = 10, epochs = 100, callbacks=[histo
 
 y_pred = classifier.predict(X_test)
 
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 # Plot training & validation loss values
-plt.plot(history.history['loss'])
-plt.title('Model loss')
-plt.ylabel('Loss')
-plt.xlabel('Epoch')
-plt.show()
+#plt.plot(history.history['loss'])
+#plt.title('Model loss')
+#plt.ylabel('Loss')
+#plt.xlabel('Epoch')
+#plt.show()
 
 
 
