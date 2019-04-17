@@ -30,7 +30,7 @@ X = X[:, 2:]
 
 # Splitting the dataset into the Training set and Test set
 from sklearn.model_selection import train_test_split
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.8 , random_state = 0)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2 , random_state = 0)
 
 # Feature Scaling
 from sklearn.preprocessing import StandardScaler
@@ -70,13 +70,22 @@ classifier.fit(X_train, y_train, batch_size = 10, epochs = 100, callbacks=[histo
 
 y_pred = classifier.predict(X_test)
 
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 
 # Plot training & validation loss values
 #plt.plot(history.history['loss'])
 #plt.title('Model loss')
 #plt.ylabel('Loss')
 #plt.xlabel('Epoch')
+#plt.show()
+
+# Plot training & validation loss values
+#plt.plot([y_pred[n] for n in range(0, len(y_pred)) if n % 200 == 0])
+#plt.plot([y_test[n] for n in range(0, len(y_pred)) if n % 200 == 0])
+#plt.title('Valor previsto X Valor Real')
+#plt.ylabel('Carga')
+#plt.xlabel('Treinamento')
+#plt.legend(['Previsto', 'Real'], loc='upper left')
 #plt.show()
 
 
