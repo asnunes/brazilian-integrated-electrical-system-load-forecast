@@ -10,7 +10,6 @@ import datetime as dt
 import pandas as pd
 import numpy as np
 import holidays
-import re
 
 class WeekDay():
     def __init__(self, datetime):
@@ -174,12 +173,9 @@ class DateYear:
                 temp = float(temp)
                 if not math.isnan(temp):
                     self.dateMonths[month].add_temp(temp, temp_header, datetime)
-                else:
-                    print(temp)
-                
             except ValueError:
-                print(temp)
-            
+                pass
+                    
     def get_data_table(self, temp_headers):
         list_of_months_tables = [dateMonth.get_data_table(temp_headers) for dateMonth in self.dateMonths.values()]
         return sum(list_of_months_tables, [])
@@ -276,7 +272,7 @@ print("Número de Datas sem carga: "+ str(DateHandler.number_of_dates_without_lo
 print("Carregando Temperaturas...")
 files_names = os.listdir()
 csv_names = list(filter(
-        lambda file_name : '.csv' in file_name and 'original_data/loads_by_hours' not in file_name,
+        lambda file_name : '.csv' in file_name and 'loads_by_hours' not in file_name,
         files_names))
 temp_datasets = [pd.read_csv(csv_name, sep=',') for csv_name in csv_names]
 
