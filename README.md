@@ -1,6 +1,6 @@
-# Load Previewer
+# Load Predict
 
-ANN to preview eletrical load of brazilian national system
+ANN to predict eletrical load of brazilian national system
 
 ### Content
 
