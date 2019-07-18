@@ -51,8 +51,10 @@ class DateHour:
         self.temps[temp_header] = temp
     
     def add_load(self, load):
-        self.load = load
-        
+        parsed_load = load.replace(".", "").replace(",",".")
+        load_in_gwh = float(parsed_load)/1000.0
+        self.load = load_in_gwh
+
     def get_data_line(self, temp_headers):
         keys = ["Anos após 2000", "Mês do ano", "Dia do mês", "Hora do dia", "Dia da Semana", "Feriado", *temp_headers, "Carga"]
         data_line = {key: "" for key in keys}
@@ -63,7 +65,7 @@ class DateHour:
         data_line["Dia do mês"] = dates[2]
         data_line["Hora do dia"] = dates[3]
         
-        if self.load: data_line["Carga"] = self.load.replace(".", "").replace(",",".")
+        if self.load: data_line["Carga"] = self.load
         
         for temp_header in temp_headers:
             if temp_header in self.temps:
