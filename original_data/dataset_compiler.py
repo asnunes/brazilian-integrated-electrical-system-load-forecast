@@ -31,8 +31,22 @@ class DateHour:
     def get_delta_date(self):
         delta_in_seconds = (self.date - DateHour.str_to_datetime("01/01/1999 00:00:00")).total_seconds()
         delta_in_hours = divmod(delta_in_seconds, 3600)[0] 
-        return delta_in_hours
         
+        years_after_2000, month, day, hour = self.split_dates(delta_in_hours)
+        
+        return [years_after_2000, month, day, hour]
+
+    def split_dates(self, delta_in_hours):
+        original_date = dt.datetime(2000, 1, 1)
+        datetime = original_date + dt.timedelta(hours=delta_in_hours)
+        
+        years_from_2000 = datetime.year - 2000
+        month = datetime.month
+        day = datetime.day
+        hour = datetime.hour
+
+        return [years_from_2000, month, day, hour]
+
     def add_temp(self, temp, temp_header):
         self.temps[temp_header] = temp
     
@@ -40,10 +54,15 @@ class DateHour:
         self.load = load
         
     def get_data_line(self, temp_headers):
-        keys = ["Data", "Dia da Semana", "Feriado", *temp_headers, "Carga"]
+        keys = ["Anos após 2000", "Mês do ano", "Dia do mês", "Hora do dia", "Dia da Semana", "Feriado", *temp_headers, "Carga"]
         data_line = {key: "" for key in keys}
         
-        data_line["Data"] = self.delta_date
+        dates = self.delta_date
+        data_line["Anos após 2000"] = dates[0]
+        data_line["Mês do ano"] = dates[1]
+        data_line["Dia do mês"] = dates[2]
+        data_line["Hora do dia"] = dates[3]
+        
         if self.load: data_line["Carga"] = self.load.replace(".", "").replace(",",".")
         
         for temp_header in temp_headers:
@@ -225,7 +244,7 @@ class DateHandler:
     def get_data_table(date_years, temp_headers):
         list_of_years_tables = [date_year.get_data_table(temp_headers) for date_year in date_years.values()]
         return sum(list_of_years_tables, [])
-    
+
     @staticmethod
     def number_of_dates(date_years):
         return sum([date_year.number_of_dates() for date_year in date_years.values()])
@@ -293,7 +312,7 @@ DateHandler.set_mean_temp(csv_names, date_years)
 
 # Get table
 print("Obtendo tabela de dados...")
-dataset = [["Data", "Dia da Semana", "Feriado", *csv_names, "Carga"], *DateHandler.get_data_table(date_years, csv_names)]
+dataset = [["Anos após 2000", "Mês do Ano", "Dia do Mês", "Hora do dia", "Dia da Semana", "Feriado", *csv_names, "Carga"], *DateHandler.get_data_table(date_years, csv_names)]
 
 # Remove lines without content
 print("Limpando dados...")
