@@ -299,6 +299,7 @@ temp_datasets = [pd.read_csv(csv_name, sep=',') for csv_name in csv_names]
 
 # Get each temp dataset
 print("Setando temperaturas...")
+print(csv_names)
 for index, temp_dataset in enumerate(temp_datasets):
     temp_days = temp_dataset.iloc[1:, 0].values
     temp_hours = temp_dataset.iloc[1:, 1].values # 18:00 as 1800
