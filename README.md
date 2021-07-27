@@ -1,4 +1,4 @@
-# Load Predict
+# Load Prediction
 
 ANN to predict electrical load of brazilian national system. This repository is part of "Redes Neurais aplicadas à previsão de carga no sistema elétrico brasileiro". How to implement and results are available at:
 
